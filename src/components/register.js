@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Input from "../ui/input";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,14 +9,15 @@ import {
   userSignSuccess,
 } from "../slice/user/auth";
 import ApiFetch from "../services/api";
+import Validation from "./validation-errors";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
-  const { isLoading, LoggedIn } = useSelector((state) => state.auth);
-
+  const { isLoading } = useSelector((state) => state.auth);
+  const location = useLocation();
   const HandlerRegister = async () => {
     dispatch(userSignStart());
     const user = {
@@ -27,12 +28,8 @@ const Register = () => {
     try {
       const response = await ApiFetch.UserRegister(user);
       dispatch(userSignSuccess(response));
-      if (LoggedIn) {
-        alert("user logged successfully");
-      }
     } catch (error) {
       dispatch(userSignFailure(error.response.data.errors));
-      alert(error.message);
     }
   };
   return (
@@ -44,6 +41,7 @@ const Register = () => {
               <h2 className="text-gray-800 text-center text-2xl font-bold">
                 Sign up
               </h2>
+              <Validation />
               <form className="mt-8 space-y-4">
                 <Input
                   label={"Username"}

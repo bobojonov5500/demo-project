@@ -9,6 +9,7 @@ import {
   userSignSuccess,
 } from "../slice/user/auth";
 import ApiFetch from "../services/api";
+import Validation from "./validation-errors";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -37,6 +38,7 @@ const Login = () => {
               <h2 className="text-gray-800 text-center text-2xl font-bold">
                 Sign in
               </h2>
+              <Validation />
               <form className="mt-8 space-y-4">
                 <Input
                   label={"Email"}
