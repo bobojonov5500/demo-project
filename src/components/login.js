@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUserStart } from "../slice/user/auth";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.auth);
@@ -21,10 +21,10 @@ const Login = () => {
               </h2>
               <form className="mt-8 space-y-4">
                 <Input
-                  label={"Username"}
-                  type={"text"}
-                  state={username}
-                  setstate={setUsername}
+                  label={"Email"}
+                  type={"email"}
+                  state={email}
+                  setstate={setEmail}
                 />
                 <Input
                   label={"Password"}
