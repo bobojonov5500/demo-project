@@ -4,11 +4,10 @@ import { Link } from "react-router-dom";
 import Input from "../ui/input";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  registerUserFailure,
-  registerUserStart,
-  registerUserSuccess,
+  userSignFailure,
+  userSignStart,
+  userSignSuccess,
 } from "../slice/user/auth";
-import { useMutation } from "react-query";
 import ApiFetch from "../services/api";
 
 const Register = () => {
@@ -16,10 +15,10 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
-  const { isLoading, user, LoggedIn } = useSelector((state) => state.auth);
+  const { isLoading, LoggedIn } = useSelector((state) => state.auth);
 
-  const HandleSubmit = async () => {
-    dispatch(registerUserStart());
+  const HandlerRegister = async () => {
+    dispatch(userSignStart());
     const user = {
       username,
       password,
@@ -27,15 +26,14 @@ const Register = () => {
     };
     try {
       const response = await ApiFetch.UserRegister(user);
-      console.log(response);
-      dispatch(registerUserSuccess());
+      dispatch(userSignSuccess(response));
       if (LoggedIn) {
         alert("user logged successfully");
       }
     } catch (error) {
+      dispatch(userSignFailure(error.response.data.errors));
       alert(error.message);
     }
-    dispatch(registerUserFailure());
   };
   return (
     <div>
@@ -67,7 +65,7 @@ const Register = () => {
                 />
                 <div className="!mt-8">
                   <button
-                    onClick={HandleSubmit}
+                    onClick={HandlerRegister}
                     type="button"
                     className="w-full py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
                   >

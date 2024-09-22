@@ -2,11 +2,12 @@ import axios from "../services/baseURL";
 
 const ApiFetch = {
   UserRegister: async (user) => {
-    const response = await axios.post("/users", { user });
-    return response.data;
+    const { data } = await axios.post("/users", { user });
+    return data;
   },
-  UserLogin: async () => {
-    const { response } = await axios.post("/users/login");
+  UserLogin: async (user) => {
+    const { data } = await axios.post("/users/login", { user });
+    return data;
   },
   GetUser: async () => {
     const { response } = await axios.get("/user");

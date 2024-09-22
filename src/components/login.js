@@ -2,14 +2,32 @@ import React, { useState } from "react";
 import Input from "../ui/input";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUserStart } from "../slice/user/auth";
+import {
+  loginUserStart,
+  userSignFailure,
+  userSignStart,
+  userSignSuccess,
+} from "../slice/user/auth";
+import ApiFetch from "../services/api";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.auth);
-  console.log(isLoading);
+  const HandlerLogin = async () => {
+    const user = {
+      email,
+      password,
+    };
+    dispatch(userSignStart());
+    try {
+      const response = await ApiFetch.UserLogin(user);
+      dispatch(userSignSuccess(response));
+    } catch (error) {
+      dispatch(userSignFailure(error.response.data.errors));
+    }
+  };
   return (
     <div>
       <div className=" font-[sans-serif]">
@@ -34,7 +52,7 @@ const Login = () => {
                 />
                 <div className="!mt-8">
                   <button
-                    onClick={() => dispatch(loginUserStart())}
+                    onClick={HandlerLogin}
                     type="button"
                     className="w-full py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
                   >
