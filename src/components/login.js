@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Input from "../ui/input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loginUserStart,
@@ -16,6 +16,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   const HandlerLogin = async () => {
     const user = {
       email,
@@ -24,7 +25,8 @@ const Login = () => {
     dispatch(userSignStart());
     try {
       const response = await ApiFetch.UserLogin(user);
-      dispatch(userSignSuccess(response));
+      dispatch(userSignSuccess(response.user));
+      navigate("/");
     } catch (error) {
       dispatch(userSignFailure(error.response.data.errors));
     }

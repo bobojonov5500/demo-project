@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 const Validation = () => {
   const { error } = useSelector((state) => state.auth);
-
   const errormessage = useCallback(() => {
     return Object.keys(error === null ? "" : error).map((name) => {
       const msg = error[name].join(",");
