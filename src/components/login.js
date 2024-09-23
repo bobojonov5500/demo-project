@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../ui/input";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  loginUserStart,
   userSignFailure,
   userSignStart,
   userSignSuccess,
@@ -15,7 +14,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.auth);
+  const { isLoading, LoggedIn } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const HandlerLogin = async () => {
     const user = {
@@ -31,6 +30,11 @@ const Login = () => {
       dispatch(userSignFailure(error.response.data.errors));
     }
   };
+  useEffect(() => {
+    if (LoggedIn) {
+      navigate("/");
+    }
+  }, [LoggedIn]);
   return (
     <div>
       <div className=" font-[sans-serif]">

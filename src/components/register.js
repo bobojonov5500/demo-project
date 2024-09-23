@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../ui/input";
@@ -17,7 +17,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading } = useSelector((state) => state.auth);
+  const { isLoading, LoggedIn } = useSelector((state) => state.auth);
   const HandlerRegister = async () => {
     dispatch(userSignStart());
     const user = {
@@ -33,6 +33,11 @@ const Register = () => {
       dispatch(userSignFailure(error.response.data.errors));
     }
   };
+  useEffect(() => {
+    if (LoggedIn) {
+      navigate("/");
+    }
+  }, [LoggedIn]);
   return (
     <div>
       <div className=" font-[sans-serif]">
