@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { userSignSuccess } from "./slice/user/auth";
 import { getItem } from "./localstorage/saveToke";
+import Article from "./components/showarticle";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,15 @@ function App() {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/article/:id" element={<Article />} />
+        <Route
+          path="*"
+          element={
+            <h5 className="font-bold text-center my-5">
+              not found the page!!!
+            </h5>
+          }
+        />
       </Routes>
     </div>
   );

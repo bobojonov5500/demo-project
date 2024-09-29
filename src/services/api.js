@@ -13,6 +13,14 @@ const ApiFetch = {
     const { data } = await axios.get("/user");
     return data;
   },
+  GetArticles: async () => {
+    const { data } = await axios.get("/articles");
+    return data;
+  },
+  GetArticleDetails: async (slug) => {
+    const { data } = await axios.get(`/articles/${slug}`);
+    return data;
+  },
 };
 
 export default ApiFetch;

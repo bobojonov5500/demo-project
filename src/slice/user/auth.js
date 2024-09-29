@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {setItem} from "../../localstorage/saveToke";
+import { setItem } from "../../localstorage/saveToke";
 
 const initialState = {
   isLoading: false,
@@ -24,11 +24,16 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    userLogout: (state) => {
+      state.LoggedIn = false;
+      state.user = null;
+    },
   },
 });
 export const {
   userSignStart,
   userSignSuccess,
   userSignFailure,
+  userLogout,
 } = authSlice.actions;
 export default authSlice.reducer;

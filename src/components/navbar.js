@@ -1,12 +1,22 @@
 import React from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { clearItem } from "../localstorage/saveToke";
+import { userLogout } from "../slice/user/auth";
 
 const Navbar = () => {
-  const [userToggle, setUserToggle] = useState(false);
   const [toggle, setToggel] = useState(false);
   const { LoggedIn, user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const HandlerLogOut = () => {
+    clearItem("token");
+    dispatch(userLogout());
+    navigate("/login");
+  };
+
   return (
     <nav className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -56,7 +66,9 @@ const Navbar = () => {
               <Link to="/">
                 <img
                   className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                  src={
+                    "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+                  }
                   alt="Your Company"
                 />
               </Link>
@@ -102,7 +114,10 @@ const Navbar = () => {
                 </Link>
 
                 {LoggedIn ? (
-                  <button className="rounded-md  px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+                  <button
+                    onClick={HandlerLogOut}
+                    className="rounded-md  px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
                     Log Out
                   </button>
                 ) : (

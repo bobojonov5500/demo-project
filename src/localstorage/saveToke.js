@@ -9,5 +9,10 @@ const getItem = (key) => {
     return localStorage.getItem(key);
   } catch (error) {}
 };
+const clearItem = (key) => {
+  try {
+    localStorage.removeItem(key);
+  } catch (error) {}
+};
 
-export { setItem, getItem };
+export { setItem, getItem, clearItem };
