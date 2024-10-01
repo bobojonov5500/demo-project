@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import ApiFetch from "../services/api";
 import { useNavigate } from "react-router-dom";
-import { formToJSON } from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  postarticleFailure,
+  postarticleStart,
+  postarticleSuccess,
+} from "../slice/user/articleslice";
+import Loader from "./loader";
 
 const CreateArticle = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.article);
   const [formvalue, setFormvalue] = useState({
     article: {
       title: "",
@@ -13,8 +20,9 @@ const CreateArticle = () => {
       description: "",
     },
   });
-  console.log(formvalue);
+  const [error, setError] = useState("");
   const HandlePost = async () => {
+    dispatch(postarticleStart());
     try {
       const { article } = formvalue;
       if (
@@ -22,12 +30,16 @@ const CreateArticle = () => {
         article.description !== "" &&
         article.title !== ""
       ) {
-        const response = await ApiFetch.PostArticle(formvalue);
-        console.log(response);
+        await ApiFetch.PostArticle(formvalue);
         navigate("/");
-      } else return;
+        dispatch(postarticleSuccess());
+      } else {
+        setError("All fields are required ");
+        dispatch(postarticleFailure());
+      }
     } catch (error) {
-      console.log(error);
+      dispatch(postarticleFailure());
+      alert(error.message);
     }
   };
   return (
@@ -90,12 +102,15 @@ const CreateArticle = () => {
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           ></textarea>
         </div>
+        <div className={`${error === "" ? "hidden" : ""}`}>
+          <span className="text-red-500">{error}</span>
+        </div>
         <button
           onClick={HandlePost}
           type="submit"
           className="bg-green-500 rounded-md mt-3 px-4 py-1 text-white active:text-black"
         >
-          send
+          {isLoading ? "Loading..." : "send"}
         </button>
       </div>
     </div>
