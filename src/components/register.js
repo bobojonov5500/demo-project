@@ -37,7 +37,7 @@ const Register = () => {
     if (LoggedIn) {
       navigate("/");
     }
-  }, [LoggedIn]);
+  }, []);
   return (
     <div>
       <div className=" font-[sans-serif]">

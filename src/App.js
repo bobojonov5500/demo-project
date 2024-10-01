@@ -11,6 +11,7 @@ import { userSignSuccess } from "./slice/user/auth";
 import { getItem } from "./localstorage/saveToke";
 import Article from "./components/showarticle";
 import CreateArticle from "./components/createArticle";
+import EditArticle from "./components/edit";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/article/:id" element={<Article />} />
         <Route path="/create" element={<CreateArticle />} />
+        <Route path="/edit/:slug" element={<EditArticle />} />
         <Route
           path="*"
           element={

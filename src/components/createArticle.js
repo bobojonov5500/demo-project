@@ -7,7 +7,6 @@ import {
   postarticleStart,
   postarticleSuccess,
 } from "../slice/user/articleslice";
-import Loader from "./loader";
 
 const CreateArticle = () => {
   const navigate = useNavigate();
@@ -45,7 +44,7 @@ const CreateArticle = () => {
   return (
     <div className="px-4">
       <div className="max-w-lg mx-auto mt-3 ">
-      <p className="font-bold text-2xl text-center">Create Article</p>
+        <p className="font-bold text-2xl text-center">Create Article</p>
         <div>
           <label htmlFor="title" className="block mb-2 text-sm font-medium">
             Title

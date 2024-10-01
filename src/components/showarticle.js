@@ -13,9 +13,7 @@ import Loader from "./loader";
 const Article = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { isLoading, articleDetails, error } = useSelector(
-    (state) => state.article
-  );
+  const { isLoading, articleDetails } = useSelector((state) => state.article);
 
   const GetArticleDetails = async () => {
     dispatch(articleDetailsStart());
@@ -30,7 +28,7 @@ const Article = () => {
     GetArticleDetails();
   }, [id]);
   return (
-    <div className="container border-2 mx-auto">
+    <div className="container  mx-auto">
       {isLoading && <Loader />}
       <div className="text-center ">
         <p className="font-bold ">{articleDetails?.author?.username}</p>

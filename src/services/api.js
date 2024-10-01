@@ -25,6 +25,14 @@ const ApiFetch = {
     const { data } = await axios.post("/articles", articledata);
     return data;
   },
+  DeleteArticle: async (slug) => {
+    const { data } = await axios.delete(`/articles/${slug}`);
+    return data;
+  },
+  EditArticle: async (slug, article) => {
+    const { data } = await axios.put(`/articles/${slug}`, article);
+    return data;
+  },
 };
 
 export default ApiFetch;

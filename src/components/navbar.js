@@ -6,7 +6,6 @@ import { clearItem } from "../localstorage/saveToke";
 import { userLogout } from "../slice/user/auth";
 
 const Navbar = () => {
-  const [toggle, setToggel] = useState(false);
   const { LoggedIn, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,7 +13,7 @@ const Navbar = () => {
   const HandlerLogOut = () => {
     clearItem("token");
     dispatch(userLogout());
-    navigate("/login");
+    navigate("/");
   };
 
   return (

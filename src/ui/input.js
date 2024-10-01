@@ -3,7 +3,7 @@ import React from "react";
 const Input = ({ type, label, state, setstate }) => {
   return (
     <div>
-      <label className="text-gray-800 text-sm mb-2 block">{label}</label>
+      <label className="block my-2 text-sm font-medium">{label}</label>
       <div className="relative flex items-center">
         <input
           onChange={(e) => setstate(e.target.value)}

@@ -2,16 +2,21 @@ import React, { useCallback } from "react";
 import { useSelector } from "react-redux";
 
 const Validation = () => {
-  const { error } = useSelector((state) => state.auth);
+  const Autherror = useSelector((state) => state.auth.error);
+  const Editerror = useSelector((state) => state.article.error);
+
+  const combinedError = { ...Autherror, ...Editerror };
   const errormessage = useCallback(() => {
-    return Object.keys(error === null ? "" : error).map((name) => {
-      const msg = error[name].join(",");
-      return msg;
-    });
-  }, [error]);
+    return Object.keys(combinedError === null ? "" : combinedError).map(
+      (name) => {
+        const msg = combinedError[name].join(",");
+        return msg;
+      }
+    );
+  }, [combinedError]);
   return (
     <div>
-      {error !== null &&
+      {combinedError !== null &&
         errormessage().map((error) => (
           <div
             key={error}
