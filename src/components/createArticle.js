@@ -43,8 +43,9 @@ const CreateArticle = () => {
     }
   };
   return (
-    <div className="">
+    <div className="px-4">
       <div className="max-w-lg mx-auto mt-3 ">
+      <p className="font-bold text-2xl text-center">Create Article</p>
         <div>
           <label htmlFor="title" className="block mb-2 text-sm font-medium">
             Title
