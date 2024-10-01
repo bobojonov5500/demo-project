@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { userSignSuccess } from "./slice/user/auth";
 import { getItem } from "./localstorage/saveToke";
 import Article from "./components/showarticle";
+import CreateArticle from "./components/createArticle";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/article/:id" element={<Article />} />
+        <Route path="/create" element={<CreateArticle />} />
         <Route
           path="*"
           element={

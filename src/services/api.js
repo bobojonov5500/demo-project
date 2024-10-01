@@ -21,6 +21,10 @@ const ApiFetch = {
     const { data } = await axios.get(`/articles/${slug}`);
     return data;
   },
+  PostArticle: async (articledata) => {
+    const { data } = await axios.post("/articles", articledata);
+    return data;
+  },
 };
 
 export default ApiFetch;
